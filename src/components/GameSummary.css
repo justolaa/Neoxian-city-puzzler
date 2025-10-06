@@ -1,0 +1,21 @@
+.game-summary {
+    padding: 20px;
+    border: 2px solid var(--color-success);
+    border-radius: 8px;
+    background-color: var(--color-surface);
+}
+
+.game-summary h2 {
+    color: var(--color-success);
+}
+
+.summary-input {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+    width: 250px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-primary);
+    color: var(--color-text);
+    border-radius: 5px;
+}

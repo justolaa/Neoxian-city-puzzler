@@ -1,0 +1,65 @@
+/* src/components/PuzzleGrid.css */
+
+.puzzle-grid {
+    display: grid;
+    /* 
+    The magic is here:
+    - We create 15 columns.
+    - Each column is 6vw wide (6% of the viewport width).
+    - But it will not get larger than 35px. This stops the cells from becoming huge on desktops.
+    - This makes the grid fluid on mobile and capped on desktop.
+  */
+    grid-template-columns: repeat(15, min(4vw, 25px));
+    grid-template-rows: repeat(15, min(4vw, 25px));
+    /* Make cells square */
+    gap: max(0.5vw, 2px);
+    /* Flexible gap size */
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+}
+
+.grid-cell {
+    width: 100%;
+    /* Fill the available grid area */
+    height: 100%;
+    /* Fill the available grid area */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 4px;
+    font-weight: 600;
+    /* 
+    Fluid font size:
+    - It will try to be 3vw.
+    - But it won't go smaller than 12px or larger than 1.1em.
+  */
+    font-size: clamp(12px, 3vw, 1.1em);
+    text-transform: uppercase;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.grid-cell:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--color-accent);
+}
+
+.grid-cell.selected {
+    background-color: var(--color-highlight);
+    color: var(--color-bg);
+    transform: scale(1.05);
+}
+
+/* For very small screens, remove the hover effect to improve mobile UX */
+@media (max-width: 768px) {
+    .grid-cell:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}

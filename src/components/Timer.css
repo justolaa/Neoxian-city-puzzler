@@ -1,0 +1,8 @@
+/* src/components/Timer.css */
+.timer-display {
+    font-family: var(--font-accent);
+    font-size: 2rem;
+    color: var(--color-accent);
+    margin: 20px 0;
+    text-shadow: 0 0 8px var(--color-accent);
+}

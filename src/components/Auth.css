@@ -1,0 +1,26 @@
+/* src/components/Auth.css */
+.auth-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-username {
+    font-weight: bold;
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+    .auth-container {
+        position: static;
+        /* Remove absolute positioning */
+        flex-direction: column;
+        /* Stack the elements vertically */
+        width: 100%;
+        margin-bottom: 2rem;
+        /* Add some space below it */
+    }
+}
