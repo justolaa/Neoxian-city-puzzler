@@ -24,3 +24,20 @@
         /* Add some space below it */
     }
 }
+
+/* src/components/Auth.css -> add at the bottom */
+.admin-button {
+    padding: 0.6em 1.2em;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: var(--font-headline);
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    text-decoration: none;
+    transition: all 0.25s;
+}
+
+.admin-button:hover {
+    filter: brightness(1.1);
+}

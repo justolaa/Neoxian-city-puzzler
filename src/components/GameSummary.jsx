@@ -5,7 +5,7 @@ import { supabase } from '../supabaseClient';
 import './GameSummary.css';
 
 // Accept the new onRestart prop
-function GameSummary({ time, puzzleId, user, onRestart }) { 
+function GameSummary({ time, puzzleId, user, onRestart, puzzleTitle  }) { 
   const [guestUsername, setGuestUsername] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -38,18 +38,24 @@ function GameSummary({ time, puzzleId, user, onRestart }) {
     setIsSubmitting(false);
   };
 
-  // This is the block we are updating
+  // 2. Add the Share handler function
+  const handleShareToX = () => {
+    const gameUrl = window.location.origin;
+    const text = `I just solved the "${puzzleTitle}" puzzle in ${time} seconds on the Neoxian City Puzzler! 🚀\n\nCome play and test your skills!\n\n#NeoxianCity #Hive #WordPuzzle #Gaming`;
+    const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(gameUrl)}`;
+    window.open(shareUrl, '_blank');
+  };
+
   if (isSubmitted) {
     return (
       <div className="game-summary">
         <h2>Score Submitted!</h2>
         <p>Thanks for playing, {submittedUsername}!</p>
-        <button 
-          onClick={onRestart} 
-          style={{ marginTop: '20px' }} // A little space above the button
-        >
-          Play Again
-        </button>
+        <div className="summary-actions">
+          {/* 3. Add the Share button */}
+          <button onClick={handleShareToX} className="share-button">Share on X</button>
+          <button onClick={onRestart}>Play Again</button>
+        </div>
       </div>
     );
   }

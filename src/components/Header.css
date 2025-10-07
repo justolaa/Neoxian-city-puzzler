@@ -1,0 +1,63 @@
+/* src/components/Header.css */
+.app-header {
+    width: 100%;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    /* Aligns the logo to the left */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
+}
+
+.logo-image {
+    height: 50px;
+    /* Adjust the size as needed */
+    width: auto;
+}
+
+.logo-text {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    color: var(--color-text);
+    /* Hide the text on smaller screens to save space */
+}
+
+.audio-controls {
+    margin-left: auto;
+    /* Pushes the controls to the right */
+}
+
+.audio-controls button {
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary);
+    font-size: 1.5rem;
+}
+
+/* Media query for mobile */
+@media (max-width: 768px) {
+    .app-header {
+        justify-content: space-between;
+            /* Keep items spaced out */
+        margin-bottom: 1rem;
+    }
+
+    .logo-text {
+        display: none;
+        /* Hide text on small screens */
+    }
+
+    .logo-image {
+        height: 40px;
+    }
+}

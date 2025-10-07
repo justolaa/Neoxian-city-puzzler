@@ -4,7 +4,14 @@
     background-color: var(--color-surface);
     border: 1px solid var(--color-primary);
     border-radius: 8px;
+
+    /* Make sure it's 100% of its PARENT's width, which is now the flexible grid column */
     width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+
+    overflow-wrap: break-word;
+    /* This is still important */
 }
 
 .word-list-item {

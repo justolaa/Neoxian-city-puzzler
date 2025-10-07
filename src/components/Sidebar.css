@@ -1,0 +1,125 @@
+/* src/components/Sidebar.css */
+:root {
+    --sidebar-bg-color: var(--color-surface);
+    --sidebar-width: 80px;
+    --sidebar-width-expanded: 250px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg-color);
+    border-right: 1px solid var(--color-primary);
+    transition: width 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.expanded {
+    width: var(--sidebar-width-expanded);
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    /* Pushes footer to the bottom */
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    /* Pushes this section to the bottom */
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.nav-link:hover {
+    background-color: var(--color-primary);
+}
+
+.nav-link .nav-icon {
+    font-size: 1.8rem;
+    min-width: 30px;
+    /* Aligns text properly */
+    color: var(--color-muted);
+    transition: color 0.2s;
+}
+
+.nav-link:hover .nav-icon {
+    color: var(--color-highlight);
+}
+
+.link-text {
+    margin-left: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar.expanded .link-text {
+    opacity: 1;
+}
+
+.nav-link.active {
+    /* Style for the active page link */
+    background-color: var(--color-primary);
+}
+
+.nav-link.active .nav-icon {
+    color: var(--color-highlight);
+}
+
+.logo-item .nav-link {
+    padding: 0 15px;
+    justify-content: center;
+}
+
+.logo-icon {
+    height: 50px;
+    width: 50px;
+}
+
+.sidebar.expanded .logo-item .nav-link {
+    justify-content: flex-start;
+}
+
+.avatar-icon {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile .nav-link {
+    cursor: pointer;
+}
+
+.logout-icon {
+    margin-left: auto;
+    opacity: 0;
+    color: var(--color-muted);
+}
+
+.sidebar.expanded .logout-icon {
+    opacity: 1;
+}

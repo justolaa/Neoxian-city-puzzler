@@ -19,3 +19,22 @@
     color: var(--color-text);
     border-radius: 5px;
 }
+
+/* src/components/GameSummary.css -> add at the bottom */
+.summary-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.share-button {
+    background-color: #000000;
+    /* X's brand color */
+    color: #ffffff;
+    border: 1px solid #333;
+}
+
+.share-button:hover {
+    box-shadow: 0 0 15px #ffffff;
+}

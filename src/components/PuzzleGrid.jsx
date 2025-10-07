@@ -1,8 +1,8 @@
 // src/components/PuzzleGrid.jsx
 import React from 'react';
-import './PuzzleGrid.css'; // Import the new CSS file
+import './PuzzleGrid.css';
 
-function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell }) {
+function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell, onTouchStartCell, onTouchMoveCell, onTouchEndCell }) {
   if (!grid) {
     return <div>Loading Grid...</div>;
   }
@@ -11,20 +11,29 @@ function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell }) {
     return selection.some(cell => cell.row === row && cell.col === col);
   };
 
+  // We attach the main touch handlers to the container
   return (
-    <div className="puzzle-grid">
+    <div
+      className="puzzle-grid"
+      onTouchStart={onTouchStartCell}
+      onTouchMove={onTouchMoveCell}
+      onTouchEnd={onTouchEndCell}
+    >
       {grid.map((row, rowIndex) =>
         row.map((letter, colIndex) => {
           const cellIsSelected = isSelected(rowIndex, colIndex);
-          // Conditionally apply the 'selected' class
           const cellClassName = `grid-cell ${cellIsSelected ? 'selected' : ''}`;
 
           return (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className={cellClassName} // Use className
+              className={cellClassName}
+              // We still need mouse events for desktop
               onMouseDown={() => onMouseDownCell(rowIndex, colIndex)}
-              onMouseMove={() => onMouseMoveCell(rowIndex, colIndex)}
+              onMouseEnter={() => onMouseMoveCell(rowIndex, colIndex)} // onMouseEnter works better with mouse than onMouseMove
+              // Add data attributes for our touch helper function
+              data-row={rowIndex}
+              data-col={colIndex}
             >
               {letter}
             </div>

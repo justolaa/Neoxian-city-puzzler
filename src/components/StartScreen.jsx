@@ -4,15 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 
 const styles = {
-  container: {
+  buttonContainer: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '1rem',
-  },
-  puzzleButton: {
-    width: '100%',
-    maxWidth: '400px',
+    flexWrap: 'wrap', // Allows buttons to wrap to the next line
+    justifyContent: 'center', // Center the buttons
+    gap: '1rem', // Space between buttons
   }
 };
 
@@ -44,17 +40,20 @@ function StartScreen({ onSelectPuzzle }) {
   }
 
   return (
-    <div style={styles.container}>
+    <div>
       <h2>Select a Puzzle</h2>
-      {puzzles.map((puzzle) => (
-        <button
-          key={puzzle.id}
-          onClick={() => onSelectPuzzle(puzzle.id)}
-          style={styles.puzzleButton}
-        >
-          {puzzle.title}
-        </button>
-      ))}
+      {/* Use the new styled container */}
+      <div style={styles.buttonContainer}>
+        {puzzles.map((puzzle) => (
+          <button
+            key={puzzle.id}
+            onClick={() => onSelectPuzzle(puzzle.id)}
+            className="button-list-item"
+          >
+            {puzzle.title}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
