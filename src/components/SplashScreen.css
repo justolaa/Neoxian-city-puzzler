@@ -1,0 +1,145 @@
+/* src/components/SplashScreen.css (Corrected Final Version) */
+
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    overflow: hidden;
+    background-color: var(--color-bg);
+}
+
+.door {
+    position: absolute;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    background-image: url('/images/wood-texture.png');
+    background-size: cover;
+}
+
+.door.left {
+    left: 0;
+    background-position: left center;
+}
+
+.door.right {
+    left: 50vw;
+    background-position: right center;
+}
+
+/* --- Animation Trigger --- */
+/* These rules ONLY apply when the 'animate' class is added via JavaScript */
+.door.animate {
+    animation-duration: 2.5s;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    animation-fill-mode: forwards;
+}
+
+.door.left.animate {
+    animation-name: slide-open-left;
+}
+
+.door.right.animate {
+    animation-name: slide-open-right;
+}
+
+/* --- Enter Button --- */
+.enter-container {
+    position: absolute;
+    bottom: 25%;
+    z-index: 20;
+    width: 100%;
+    text-align: center;
+    animation: fade-in 1s ease;
+}
+
+.enter-button {
+    padding: 1rem 3rem;
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    border: 2px solid var(--color-surface);
+    cursor: pointer;
+    border-radius: 10px;
+    animation: pulse-light 2s infinite;
+}
+
+/* --- Logo & Text --- */
+.logo-half {
+    width: 100%;
+    height: 100%;
+
+    /* Apply the HIVE LOGO as the background */
+    background-image: url('/images/hive-logo.png');
+    background-repeat: no-repeat;
+
+    /* --- THE ROBUST FIX --- */
+
+    /* 1. Make the background image twice as wide as its container, with proportional height */
+    background-size: 50% auto;
+
+    /* 2. Vertically center the logo */
+    background-position-y: center;
+}
+
+/* 3. Position the background for each half */
+.door.left .logo-half {
+    background-position-x: left;
+    /* Show the left side of the super-wide background */
+}
+
+.door.right .logo-half {
+    background-position-x: right;
+    /* Show the right side of the super-wide background */
+}
+
+.splash-credits-container {
+    position: absolute;
+    bottom: 15%;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    /* The text should fade out as soon as the user clicks 'Enter' */
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* New rule: When the doors animate, the text fades out */
+.door.animate~.splash-credits-container {
+    opacity: 0;
+}
+
+/* --- Keyframes --- */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-open-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slide-open-right {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}

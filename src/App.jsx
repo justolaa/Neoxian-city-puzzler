@@ -9,6 +9,7 @@ import Game from './pages/Game';
 import Admin from './pages/Admin';
 import EditPuzzle from './pages/EditPuzzle';
 import SidebarToggle from './components/SidebarToggle'
+import SplashScreen from './components/SplashScreen';
 
 const ADMIN_USERNAMES = (import.meta.env.VITE_ADMIN_USERNAMES || '').split(',');
 const hivesignerClient = new hivesigner.Client({
@@ -18,6 +19,7 @@ const hivesignerClient = new hivesigner.Client({
 });
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true); // New state
   const [user, setUser] = useState(null);
   const [selectedPuzzleId, setSelectedPuzzleId] = useState(null);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false); // Add state back
@@ -61,6 +63,10 @@ function App() {
 
   // We need to slightly update Sidebar's props to pass login handlers.
   // We'll update Sidebar.jsx one last time.
+
+    if (isLoading) {
+    return <SplashScreen onAnimationEnd={() => setIsLoading(false)} />;
+  }
 
   return (
     <div className="app-container">
