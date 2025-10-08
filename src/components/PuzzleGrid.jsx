@@ -12,34 +12,38 @@ function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell, onTouch
   };
 
   // We attach the main touch handlers to the container
-  return (
-    <div
-      className="puzzle-grid"
-      onTouchStart={onTouchStartCell}
-      onTouchMove={onTouchMoveCell}
-      onTouchEnd={onTouchEndCell}
-    >
-      {grid.map((row, rowIndex) =>
-        row.map((letter, colIndex) => {
-          const cellIsSelected = isSelected(rowIndex, colIndex);
-          const cellClassName = `grid-cell ${cellIsSelected ? 'selected' : ''}`;
+ return (
+    // 1. This is the new outer container. It will have the blue background and padding.
+    <div className="puzzle-grid-container">
+      <div
+        // 2. This is the inner grid. It will no longer have padding or a background.
+        className="puzzle-grid"
+        onTouchStart={onTouchStartCell}
+        onTouchMove={onTouchMoveCell}
+        onTouchEnd={onTouchEndCell}
+        onMouseUp={onTouchEndCell} 
+        onMouseLeave={onTouchEndCell}
+      >
+        {grid.map((row, rowIndex) =>
+          row.map((letter, colIndex) => {
+            const cellIsSelected = isSelected(rowIndex, colIndex);
+            const cellClassName = `grid-cell ${cellIsSelected ? 'selected' : ''}`;
 
-          return (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={cellClassName}
-              // We still need mouse events for desktop
-              onMouseDown={() => onMouseDownCell(rowIndex, colIndex)}
-              onMouseEnter={() => onMouseMoveCell(rowIndex, colIndex)} // onMouseEnter works better with mouse than onMouseMove
-              // Add data attributes for our touch helper function
-              data-row={rowIndex}
-              data-col={colIndex}
-            >
-              {letter}
-            </div>
-          );
-        })
-      )}
+            return (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className={cellClassName}
+                onMouseDown={() => onMouseDownCell(rowIndex, colIndex)}
+                onMouseEnter={() => onMouseMoveCell(rowIndex, colIndex)}
+                data-row={rowIndex}
+                data-col={colIndex}
+              >
+                {letter}
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }

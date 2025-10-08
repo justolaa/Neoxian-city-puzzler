@@ -1,31 +1,31 @@
-/* src/components/PuzzleGrid.css */
+/* src/components/PuzzleGrid.css (Corrected with Wrapper) */
 
-.puzzle-grid {
-    display: grid;
-    /* 
-    The magic is here:
-    - We create 15 columns.
-    - Each column is 6vw wide (6% of the viewport width).
-    - But it will not get larger than 35px. This stops the cells from becoming huge on desktops.
-    - This makes the grid fluid on mobile and capped on desktop.
-  */
-    grid-template-columns: repeat(15, min(4vw, 25px));
-    grid-template-rows: repeat(15, min(4vw, 25px));
-    /* Make cells square */
-    gap: max(0.5vw, 2px);
-    /* Flexible gap size */
-    justify-content: center;
-    margin-top: 20px;
-    padding: 10px;
+/* The new outer container */
+.puzzle-grid-container {
+    /* This container has the background and padding */
     background-color: var(--color-primary);
+    padding: 10px;
     border-radius: 10px;
+
+    /* This is important: it makes the container shrink-to-fit its content */
+    display: inline-block;
+    margin-top: 20px;
 }
 
+/* The inner grid itself */
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(10, min(6.5vw, 45px));
+    grid-template-rows: repeat(10, min(6.5vw, 45px));
+    gap: max(0.8vw, 4px);
+
+    /* The grid itself has NO background or padding */
+}
+
+/* The grid cells styling remains the same */
 .grid-cell {
     width: 100%;
-    /* Fill the available grid area */
     height: 100%;
-    /* Fill the available grid area */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,12 +33,7 @@
     color: var(--color-text);
     border-radius: 4px;
     font-weight: 600;
-    /* 
-    Fluid font size:
-    - It will try to be 3vw.
-    - But it won't go smaller than 12px or larger than 1.1em.
-  */
-    font-size: clamp(12px, 3vw, 1.1em);
+    font-size: clamp(14px, 4vw, 1.5em);
     text-transform: uppercase;
     user-select: none;
     cursor: pointer;
@@ -56,7 +51,6 @@
     transform: scale(1.05);
 }
 
-/* For very small screens, remove the hover effect to improve mobile UX */
 @media (max-width: 768px) {
     .grid-cell:hover {
         transform: none;
