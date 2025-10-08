@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import hivesigner from 'hivesigner';
-
+import { Analytics } from '@vercel/analytics/react'
 // Components & Pages
 import Sidebar from './components/Sidebar';
 import Game from './pages/Game';
@@ -10,6 +10,7 @@ import Admin from './pages/Admin';
 import EditPuzzle from './pages/EditPuzzle';
 import SidebarToggle from './components/SidebarToggle'
 import SplashScreen from './components/SplashScreen';
+
 
 const ADMIN_USERNAMES = (import.meta.env.VITE_ADMIN_USERNAMES || '').split(',');
 const hivesignerClient = new hivesigner.Client({
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <div className="app-container">
+       <Analytics />
         <div 
       className={`mobile-overlay ${isSidebarExpanded ? 'visible' : ''}`}
       onClick={() => setIsSidebarExpanded(false)} // Click overlay to close menu
