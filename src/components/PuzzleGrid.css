@@ -14,10 +14,18 @@
 /* The inner grid itself */
 .puzzle-grid {
     display: grid;
-    grid-template-columns: repeat(10, min(6vw, 45px));
-    grid-template-rows: repeat(10, min(5.5vw, 45px));
-    gap: max(0.8vw, 4px);
-    /* The grid itself has NO background or padding */
+    grid-template-columns: repeat(10, min(7vw, 45px));
+    grid-template-rows: repeat(10, min(7vw, 45px));
+    gap: min(1vw, 5px);
+
+    /* --- THE FIX FOR ACCIDENTAL REFRESH --- */
+    /* 
+    This CSS property tells the browser to NOT handle any of its default
+    touch behaviors (like scrolling, zooming, or pull-to-refresh)
+    within this element. We are signaling that we will handle all touch
+    events ourselves with JavaScript.
+  */
+    touch-action: none;
 }
 
 /* The grid cells styling remains the same */
