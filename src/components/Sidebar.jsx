@@ -1,25 +1,30 @@
 // src/components/Sidebar.jsx
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { FaCog, FaVolumeMute, FaVolumeUp } from 'react-icons/fa'; // Import icons
-import { toggleMute } from '../audioManager'; // Import our function
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
-// Import icons from the library
-import { FaHome, FaPlusSquare, FaBookOpen, FaQuestionCircle, FaSignInAlt, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+// 1. CLEANED UP IMPORTS
+// We've combined the icon imports and updated the audio manager functions.
+import { 
+  FaHome, FaBookOpen, FaQuestionCircle, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaVolumeMute, FaVolumeUp 
+} from 'react-icons/fa';
 import { RiAdminFill } from 'react-icons/ri';
+import { toggleMusicMute, getMusicMutedState } from '../audioManager';
 
-// Hive signup URL
 const HIVE_ENROLL_URL = 'https://signup.hive.io/';
 
-function Sidebar({isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onLoginHivesigner, onLogout, onGoHome }) {
+function Sidebar({ isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onLoginHivesigner, onLogout, onGoHome }) {
   
-   const [isMuted, setIsMuted] = useState(false); // Add state for mute
+  // 2. UPDATED STATE AND HANDLER
+  // The state and handler are now specific to music.
+  const [musicMuted, setMusicMuted] = useState(getMusicMutedState());
   const userAvatarUrl = user ? `https://images.hive.blog/u/${user}/avatar` : '/images/default-avatar.png';
 
-
-    // On desktop, we want mouse hover behavior.
-  // On mobile, we want tap behavior.
+  const handleMusicToggle = () => {
+    setMusicMuted(toggleMusicMute());
+  };
+  
+  // These hover handlers are correct and remain the same.
   const handleMouseEnter = () => {
     if (window.innerWidth > 768) {
       setIsExpanded(true);
@@ -32,18 +37,7 @@ function Sidebar({isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onL
     }
   };
 
-  const handleMuteToggle = () => {
-    const newMutedState = toggleMute();
-    setIsMuted(newMutedState);
-  };
-
-  
-  const handleHivesignerLogin = () => {
-    // We'll need to re-create a small hivesigner client here for the redirect
-    // Or, even better, we move login logic to App.jsx and pass it down.
-    // For now, this is a placeholder. We will fix this.
-    alert("Login with Hivesigner clicked. We'll wire this up in App.jsx.");
-  };
+  // The old handleHivesignerLogin function is removed as it's no longer needed.
 
   return (
     <nav
@@ -51,24 +45,20 @@ function Sidebar({isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onL
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {/* This top section is exactly as you wanted it. */}
       <ul className="sidebar-nav">
-        {/* Logo/Home Link */}
         <li className="nav-item logo-item">
           <NavLink to="/" className="nav-link" onClick={onGoHome}>
             <img src="/images/neoxian-logo.png" alt="Logo" className="nav-icon logo-icon" />
             <span className="link-text">Neoxian Puzzler</span>
           </NavLink>
         </li>
-
-        {/* Main Navigation */}
         <li className="nav-item">
           <NavLink to="/" className="nav-link" onClick={onGoHome}>
             <FaHome className="nav-icon" />
             <span className="link-text">Home</span>
           </NavLink>
         </li>
-        
-        {/* If user is an admin, show the Admin Panel link */}
         {isAdmin && (
           <li className="nav-item">
             <NavLink to="/admin" className="nav-link">
@@ -77,54 +67,51 @@ function Sidebar({isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onL
             </NavLink>
           </li>
         )}
-        
-        {/* Placeholder for future links */}
         <li className="nav-item"><a href="#" className="nav-link"><FaBookOpen className="nav-icon" /><span className="link-text">Rules</span></a></li>
         <li className="nav-item"><a href="#" className="nav-link"><FaQuestionCircle className="nav-icon" /><span className="link-text">About</span></a></li>
       </ul>
 
-      {/* Bottom section: User Profile or Login/Enroll */}
-      <div className="sidebar-footer">
-         {/* Add the mute button here */}
+      {/* 3. UPDATED FOOTER SECTION */}
+      {/* We wrap everything in a UL for correct HTML structure. */}
+      <ul className="sidebar-footer">
         <li className="nav-item">
-          <a href="#" className="nav-link" onClick={handleMuteToggle}>
-            {isMuted ? <FaVolumeMute className="nav-icon" /> : <FaVolumeUp className="nav-icon" />}
-            <span className="link-text">{isMuted ? 'Unmute' : 'Mute'}</span>
+          <a href="#" className="nav-link" onClick={handleMusicToggle} title={musicMuted ? "Unmute Music" : "Mute Music"}>
+            {musicMuted ? <FaVolumeMute className="nav-icon" /> : <FaVolumeUp className="nav-icon" />}
+            <span className="link-text">{musicMuted ? 'Unmute Music' : 'Mute Music'}</span>
           </a>
         </li>
+        
         {user ? (
-          // Logged-in view
-          <div className="nav-item user-profile">
+          <li className="nav-item user-profile">
             <div className="nav-link" onClick={onLogout} title="Logout">
               <img src={userAvatarUrl} alt="User Avatar" className="nav-icon avatar-icon" />
               <span className="link-text">@{user}</span>
               <FaSignOutAlt className="logout-icon" />
             </div>
-          </div>
+          </li>
         ) : (
-          // Logged-out view
-      <>
-  <li className="nav-item">
-    <a href="#" className="nav-link" onClick={onLoginKeychain}>
-      <FaSignInAlt className="nav-icon" />
-      <span className="link-text">Login Keychain</span>
-    </a>
-  </li>
-  <li className="nav-item">
-    <a href="#" className="nav-link" onClick={onLoginHivesigner}>
-      <FaSignInAlt className="nav-icon" />
-      <span className="link-text">Login Hivesigner</span>
-    </a>
-  </li>
-  <li className="nav-item">
-    <a href={HIVE_ENROLL_URL} target="_blank" rel="noopener noreferrer" className="nav-link">
-      <FaUserPlus className="nav-icon" />
-      <span className="link-text">Enroll on Hive</span>
-    </a>
-  </li>
-</>
+          <>
+            <li className="nav-item">
+              <a href="#" className="nav-link" onClick={onLoginKeychain}>
+                <FaSignInAlt className="nav-icon" />
+                <span className="link-text">Login Keychain</span>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link" onClick={onLoginHivesigner}>
+                <FaSignInAlt className="nav-icon" />
+                <span className="link-text">Login Hivesigner</span>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href={HIVE_ENROLL_URL} target="_blank" rel="noopener noreferrer" className="nav-link">
+                <FaUserPlus className="nav-icon" />
+                <span className="link-text">Enroll on Hive</span>
+              </a>
+            </li>
+          </>
         )}
-      </div>
+      </ul>
     </nav>
   );
 }
