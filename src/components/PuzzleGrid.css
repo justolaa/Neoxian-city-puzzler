@@ -44,9 +44,51 @@
     user-select: none;
     cursor: pointer;
     transition: all 0.2s ease;
+    position: relative;
+        /* Crucial for positioning the line */
 }
 
-.grid-cell:hover {
+.letter {
+    position: relative;
+    z-index: 2;
+    /* Ensures letter is on top of the line */
+}
+
+/* --- Strikethrough Styles --- */
+
+.strikethrough-line {
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    /* Overlap the gap */
+    right: -2px;
+    /* Overlap the gap */
+    height: 4px;
+    background-color: var(--color-accent);
+    transform: translateY(-50%) scaleX(0);
+    /* Hidden by default */
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
+    /* Behind the letter */
+    border-radius: 2px;
+}
+
+.grid-cell.found .strikethrough-line {
+    transform: translateY(-50%) scaleX(1);
+    /* Animate into view */
+}
+
+.grid-cell.found .letter {
+    color: var(--color-muted);
+    opacity: 0.8;
+}
+
+.grid-cell.found {
+    cursor: default;
+}
+
+.grid-cell:not(.found):hover {
     transform: scale(1.1);
     box-shadow: 0 0 10px var(--color-accent);
 }
@@ -57,8 +99,13 @@
     transform: scale(1.05);
 }
 
+.grid-cell.selected .strikethrough-line {
+    transform: translateY(-50%) scaleX(0);
+    /* Hide line when re-selecting */
+}
+
 @media (max-width: 768px) {
-    .grid-cell:hover {
+    .grid-cell:not(.found):hover {
         transform: none;
         box-shadow: none;
     }

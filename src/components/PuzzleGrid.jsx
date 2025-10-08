@@ -2,8 +2,9 @@
 import React from 'react';
 import './PuzzleGrid.css';
 
-function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell, onTouchStartCell, onTouchMoveCell, onTouchEndCell }) {
-  if (!grid) {
+// THE FIX: Component now correctly accepts 'onMouseEnter' as a prop
+function PuzzleGrid({ grid, selection, foundWordData, onMouseDownCell, onMouseEnter, onTouchStartCell, onTouchMoveCell, onTouchEndCell }) {
+  if (!grid || grid.length === 0) {
     return <div>Loading Grid...</div>;
   }
 
@@ -11,34 +12,39 @@ function PuzzleGrid({ grid, selection, onMouseDownCell, onMouseMoveCell, onTouch
     return selection.some(cell => cell.row === row && cell.col === col);
   };
 
-  // We attach the main touch handlers to the container
- return (
-    // 1. This is the new outer container. It will have the blue background and padding.
+  const isFound = (row, col) => {
+    return foundWordData.some(wordData => 
+      wordData.cells.some(cell => cell.row === row && cell.col === col)
+    );
+  };
+
+  return (
     <div className="puzzle-grid-container">
       <div
-        // 2. This is the inner grid. It will no longer have padding or a background.
         className="puzzle-grid"
         onTouchStart={onTouchStartCell}
         onTouchMove={onTouchMoveCell}
         onTouchEnd={onTouchEndCell}
-        onMouseUp={onTouchEndCell} 
+        onMouseUp={onTouchEndCell}
         onMouseLeave={onTouchEndCell}
       >
         {grid.map((row, rowIndex) =>
           row.map((letter, colIndex) => {
             const cellIsSelected = isSelected(rowIndex, colIndex);
-            const cellClassName = `grid-cell ${cellIsSelected ? 'selected' : ''}`;
+            const cellIsFound = isFound(rowIndex, colIndex);
+            const cellClassName = `grid-cell ${cellIsSelected ? 'selected' : ''} ${cellIsFound ? 'found' : ''}`;
 
             return (
               <div
                 key={`${rowIndex}-${colIndex}`}
                 className={cellClassName}
                 onMouseDown={() => onMouseDownCell(rowIndex, colIndex)}
-                onMouseEnter={() => onMouseMoveCell(rowIndex, colIndex)}
+                onMouseEnter={() => onMouseEnter(rowIndex, colIndex)} // THE FIX: It now correctly calls the onMouseEnter prop
                 data-row={rowIndex}
                 data-col={colIndex}
               >
-                {letter}
+                <span className="letter">{letter}</span>
+                <span className="strikethrough-line"></span>
               </div>
             );
           })
