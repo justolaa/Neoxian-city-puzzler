@@ -11,15 +11,25 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 1rem;
+    /* Add padding for small screens */
 }
 
 .modal-content {
     background-color: var(--color-surface);
-    padding: 2rem;
     border-radius: 10px;
     border: 1px solid var(--color-primary);
-    width: 90%;
+    width: 100%;
     max-width: 600px;
+
+    /* --- THE FIX --- */
+    max-height: 90vh;
+    /* Don't let the modal be taller than 90% of the screen */
+    display: flex;
+    /* Use flexbox to control the inner layout */
+    flex-direction: column;
+    /* Stack children vertically */
+
     position: relative;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
@@ -33,11 +43,21 @@
     font-size: 2rem;
     color: var(--color-muted);
     cursor: pointer;
+    z-index: 10;
+    /* Ensure it's on top of the content */
 }
 
 .modal-close-button:hover {
     color: var(--color-text);
     box-shadow: none;
-    /* Override global button hover */
     filter: none;
+}
+
+/* NEW: This is the wrapper for the scrollable content */
+.modal-body {
+    padding: 2rem;
+    padding-top: 3rem;
+    /* Extra padding to avoid the close button */
+    overflow-y: auto;
+    /* This is the magic: enables vertical scrolling */
 }

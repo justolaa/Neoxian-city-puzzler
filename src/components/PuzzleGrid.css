@@ -4,9 +4,8 @@
 .puzzle-grid-container {
     /* This container has the background and padding */
     background-color: var(--color-primary);
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
-
     /* This is important: it makes the container shrink-to-fit its content */
     display: inline-block;
     margin-top: 20px;
@@ -15,10 +14,9 @@
 /* The inner grid itself */
 .puzzle-grid {
     display: grid;
-    grid-template-columns: repeat(10, min(6.5vw, 45px));
-    grid-template-rows: repeat(10, min(6.5vw, 45px));
+    grid-template-columns: repeat(10, min(6vw, 45px));
+    grid-template-rows: repeat(10, min(5.5vw, 45px));
     gap: max(0.8vw, 4px);
-
     /* The grid itself has NO background or padding */
 }
 

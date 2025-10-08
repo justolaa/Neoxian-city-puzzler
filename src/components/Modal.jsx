@@ -13,9 +13,12 @@ function Modal({ isOpen, onClose, children }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close-button" onClick={onClose}>
-          &times; {/* This is an 'X' symbol */}
+          &times;
         </button>
-        {children}
+        {/* Wrap the content in the new scrollable body */}
+        <div className="modal-body">
+          {children}
+        </div>
       </div>
     </div>
   );

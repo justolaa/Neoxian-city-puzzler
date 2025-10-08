@@ -7,6 +7,7 @@ import Timer from './Timer';
 import GameSummary from './GameSummary';
 import Leaderboard from './Leaderboard';
 import Modal from './Modal';
+import'./GameContainer.css'
 import { 
   playHighlightSound, 
   playCorrectSound, 
@@ -25,6 +26,7 @@ function GameContainer({ puzzleId, onGameEnd, user }) {
   const [time, setTime] = useState(0);
   const [isGameComplete, setIsGameComplete] = useState(false);
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
+  const [isHintsOpen, setIsHintsOpen] = useState(false); // <-- Add this
 
   // Fetch puzzle data
   useEffect(() => {
@@ -143,7 +145,7 @@ const handleTouchEnd = () => {
   if (!puzzle) return <h1>No puzzle found.</h1>;
 
   return (
-    <div>
+    <div className="game-container">
       <h1>{puzzle.title}</h1>
       <Timer time={time} />
       
@@ -158,14 +160,17 @@ const handleTouchEnd = () => {
         </div>
       )}
       
-      <WordList words={puzzle.words} foundWords={foundWords} />
 
-      {/* New "Show Leaderboard" Button */}
-      <div style={{ marginTop: '2rem' }}>
-        <button onClick={() => setIsLeaderboardOpen(true)}>
-          View Leaderboard
-        </button>
+ {/* New Actions Bar for Hints & Leaderboard Buttons */}
+      <div className="game-actions">
+        <button onClick={() => setIsHintsOpen(true)}>Show Hints</button>
+        <button onClick={() => setIsLeaderboardOpen(true)}>View Leaderboard</button>
       </div>
+      
+      {/* Hints are now inside a Modal */}
+      <Modal isOpen={isHintsOpen} onClose={() => setIsHintsOpen(false)}>
+        <WordList words={puzzle.words} foundWords={foundWords} />
+      </Modal>
 
       {/* Leaderboard is now inside the Modal */}
       <Modal isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)}>

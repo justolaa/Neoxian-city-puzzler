@@ -85,7 +85,6 @@ function Sidebar({isExpanded, setIsExpanded, user, isAdmin, onLoginKeychain, onL
 
       {/* Bottom section: User Profile or Login/Enroll */}
       <div className="sidebar-footer">
-
          {/* Add the mute button here */}
         <li className="nav-item">
           <a href="#" className="nav-link" onClick={handleMuteToggle}>

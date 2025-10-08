@@ -182,14 +182,14 @@ ul {
         display: block;
         /* Revert to simple block layout to allow overlay */
         position: relative;
+        
     }
 
     .main-content {
         padding: 1rem;
-        padding-left: 40px;
         width: 100%;
         /* Ensure it takes full width */
-        box-sizing: border-box;
+       
     }
 
     /* The sidebar overlay logic remains the same as our last working version */

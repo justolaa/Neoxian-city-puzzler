@@ -1,0 +1,15 @@
+/* src/components/GameContainer.css */
+.game-container {
+    /* This turns the container into a flexbox column */
+    display: flex;
+    flex-direction: column;
+    /* This is the magic: it centers all direct children horizontally */
+    align-items: center;
+}
+
+/* src/components/GameContainer.css -> add at the bottom */
+.game-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}

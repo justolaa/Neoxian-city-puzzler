@@ -35,6 +35,8 @@
 
 .sidebar-footer {
     margin-top: auto;
+    list-style-type: none;
+        /* Add this */
     /* Pushes this section to the bottom */
 }
 
