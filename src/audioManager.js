@@ -1,12 +1,29 @@
-// src/audioManager.js (Music-Only Mute Version)
+// src/audioManager.js (With Hardcoded Volume Controls)
 
-// --- State Management ---
+// --- 1. Preload all sound effects and set their individual volumes ---
+const sfx = {
+  tick: new Audio('/audio/tick.mp3'),
+  correct: new Audio('/audio/correct.mp3'),
+  error: new Audio('/audio/error.mp3')
+};
+
+// --- SET SFX VOLUMES HERE ---
+// (0.0 = silent, 1.0 = full volume)
+sfx.tick.volume = 0.5;      // A quiet, subtle tick (50%)
+sfx.correct.volume = 0.7;   // A satisfying, noticeable success sound (70%)
+sfx.error.volume = 0.7;     // An equally noticeable error sound (70%)
+
+
+// --- State Management for Music ---
 let isMusicMuted = false;
 
 // --- Background Music Logic ---
 export const backgroundMusic = new Audio('/audio/music.mp3');
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.3;
+
+// --- SET MUSIC VOLUME HERE ---
+backgroundMusic.volume = 0.2; // Keep background music quiet (20%)
+
 
 export const playMusic = () => {
   backgroundMusic.muted = isMusicMuted;
@@ -18,22 +35,19 @@ export const stopMusic = () => {
   backgroundMusic.currentTime = 0;
 };
 
-// --- Sound Effects (SFX) Logic - ALWAYS ON ---
-const playSound = (src) => {
-  try {
-    const sound = new Audio(src);
-    sound.volume = 0.7;
-    sound.play();
-  } catch (e) {
-    console.error("Could not play sound:", e);
-  }
+
+// --- Sound Effects (SFX) Logic (no changes needed here) ---
+const playSound = (soundObject) => {
+  soundObject.currentTime = 0;
+  soundObject.play();
 };
 
-export const playHighlightSound = () => playSound('/audio/tick.mp3');
-export const playCorrectSound = () => playSound('/audio/correct.mp3');
-export const playErrorSound = () => playSound('/audio/error.mp3');
+export const playHighlightSound = () => playSound(sfx.tick);
+export const playCorrectSound = () => playSound(sfx.correct);
+export const playErrorSound = () => playSound(sfx.error);
 
-// --- Control Functions for the UI ---
+
+// --- Control Functions for the UI (no changes needed here) ---
 export const toggleMusicMute = () => {
   isMusicMuted = !isMusicMuted;
   backgroundMusic.muted = isMusicMuted;
