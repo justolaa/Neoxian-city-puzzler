@@ -28,12 +28,14 @@
 
 ## 🌆 Welcome to Neoxian City Puzzler
 
-Welcome to **Neoxian City Puzzler** — a word search game reimagined for the **Neoxian City** community and the **Hive blockchain**.  
+Welcome to **Neoxian City Puzzler** - a word search game reimagined for the **Neoxian City** community and the **Hive blockchain**.  
 This project transforms a traditional manual puzzle event into a **real-time**, **competitive**, and **beautifully interactive** experience.  
 
-It’s not just a game — it’s a bridge between entertainment and community engagement on Hive.
+It's not just a game, it's a bridge between entertainment and community engagement on Hive.
 
 Built by [@justola1](https://peakd.com/@justola1).
+Idowu Olamide,[Profile](https://linktr.ee/idowuolamide)
+[Portfolio-Website](https://idowu-olamide.web.app/)
 
 ---
 
@@ -42,14 +44,14 @@ Built by [@justola1](https://peakd.com/@justola1).
 
 Experience community-driven fun through modern tech and thoughtful design:
 
-- 🧠 **Dynamic Puzzles:** Pulled directly from the database — new challenges without updating the app.  
+- 🧠 **Dynamic Puzzles:** Pulled directly from the database, new challenges without updating the app.  
 - 🏆 **Real-time Leaderboard:** See the best players instantly as results update live.  
-- 🌟 **Best Score System:** Fair play — one best record per puzzle per user.  
+- 🌟 **Best Score System:** Fair play, one best record per puzzle per user.  
 - 🔑 **Hive Authentication:** Log in securely with **Hive Keychain** or **Hivesigner**, or play as a guest.  
 - 🔐 **Admin Panel:** Hive-auth protected dashboard for adding/editing puzzles without DB access.  
 - 🎨 **Custom Theme:** Modern Neoxian-inspired UI with animated splash screen and sidebar navigation.  
 - 🔊 **Game Audio:** Satisfying sounds and background music with user-controlled mute.  
-- 🚀 **Community Tools:** “Share on X” and “Join Hive” buttons to grow the ecosystem.  
+- 🚀 **Community Tools:** "Share on X" and "Join Hive" buttons to grow the ecosystem.  
 
 ---
 
@@ -120,10 +122,10 @@ This project was designed for **Neoxian City**, a hub of creativity and collabor
 
 It aims to:  
 - Strengthen community bonds through friendly competition 🫱🏼‍🫲🏾  
-- Showcase Hive’s accessibility and innovation 💎  
+- Showcase Hive's accessibility and innovation 💎  
 - Invite new users to explore and join the ecosystem 🌍  
 
-> “When passion for community meets innovation, the result is something truly special.”
+> "When passion for community meets innovation, the result is something truly special."
 
 **Created with ❤️ by [@justola1](https://peakd.com/@justola1)**
 
