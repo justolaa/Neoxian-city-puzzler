@@ -51,7 +51,8 @@
 .letter {
     position: relative;
     z-index: 2;
-    /* Ensures letter is on top of the line */
+    /* THE FIX: Make this element invisible to clicks/touches */
+    pointer-events: none;
 }
 
 /* --- Strikethrough Styles --- */
@@ -60,18 +61,16 @@
     position: absolute;
     top: 50%;
     left: -2px;
-    /* Overlap the gap */
     right: -2px;
-    /* Overlap the gap */
     height: 4px;
     background-color: var(--color-accent);
     transform: translateY(-50%) scaleX(0);
-    /* Hidden by default */
     transform-origin: center;
     transition: transform 0.3s ease-in-out;
     z-index: 1;
-    /* Behind the letter */
     border-radius: 2px;
+    /* THE FIX: Also make this element invisible to clicks/touches */
+    pointer-events: none;
 }
 
 .grid-cell.found .strikethrough-line {
